@@ -14,6 +14,7 @@ gunicorn = "*"
 psycopg2 = "*"
 requests = "*"
 flask-user = "*"
+flask-babelex = "*"
 
 [requires]
 python_version = "3.7"
