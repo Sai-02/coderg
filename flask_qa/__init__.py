@@ -16,6 +16,8 @@ def create_app(config_file='settings.py'):
 
     db.init_app(app)
 
+    app.config['CSRF_ENABLED'] = True
+    app.config['USER_ENABLE_EMAIL'] = False
     db_adapter = SQLAlchemyAdapter(db, User)
     user_manager = UserManager(db_adapter, app)
 
