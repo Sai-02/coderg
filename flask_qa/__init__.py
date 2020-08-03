@@ -1,7 +1,8 @@
 from flask import Flask
 
 from .commands import create_tables
-from .extensions import db, user_manager
+from .extensions import db
+from .extensions2 import user_manager
 from .models import Projects, UserDb, PostDb, User
 from .routes.auth import auth
 from .routes.main import main
