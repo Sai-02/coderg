@@ -1,10 +1,12 @@
-from flask import Flask 
+from flask import Flask
 
 from .commands import create_tables
-from .extensions import db, login_manager
+from .extensions import db, db_adapter
 from .models import Projects, UserDb, PostDb
 from .routes.auth import auth
 from .routes.main import main
+
+from flask_user import UserManager
 
 
 def create_app(config_file='settings.py'):
@@ -14,17 +16,14 @@ def create_app(config_file='settings.py'):
 
     db.init_app(app)
 
+    user_manager = UserManager(db_adapter, app)
+
     app.register_blueprint(main)
     app.register_blueprint(auth)
 
     app.cli.add_command(create_tables)
 
     return app
-
-
-
-
-
 
 # def create_app(config_file='settings.py'):
 #     app = Flask(__name__)
