@@ -1,12 +1,12 @@
 from flask import Flask
 
 from .commands import create_tables
-from .extensions import db, db_adapter
-from .models import Projects, UserDb, PostDb
+from .extensions import db
+from .models import Projects, UserDb, PostDb, User
 from .routes.auth import auth
 from .routes.main import main
 
-from flask_user import UserManager
+from flask_user import UserManager, SQLAlchemyAdapter
 
 
 def create_app(config_file='settings.py'):
@@ -16,6 +16,7 @@ def create_app(config_file='settings.py'):
 
     db.init_app(app)
 
+    db_adapter = SQLAlchemyAdapter(db, User)
     user_manager = UserManager(db_adapter, app)
 
     app.register_blueprint(main)
