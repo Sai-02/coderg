@@ -13,9 +13,9 @@ python-dotenv = "*"
 gunicorn = "*"
 psycopg2 = "*"
 requests = "*"
-flask-user = "*"
 flask-babelex = "*"
 email-validator = "*"
+flask-user = "==0.6.21"
 
 [requires]
 python_version = "3.7"
