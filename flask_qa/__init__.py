@@ -16,8 +16,11 @@ def create_app(config_file='settings.py'):
 
     db.init_app(app)
 
-    app.config['CSRF_ENABLED'] = True
+    app.config['USER_APP_NAME'] = 'Aqdas'
+    # app.config['CSRF_ENABLED'] = True
     app.config['USER_ENABLE_EMAIL'] = False
+    app.config['USER_ENABLE_USERNAME'] = True
+    app.config['USER_REQUIRE_RETYPE_PASSWORD'] = False
     db_adapter = SQLAlchemyAdapter(db, User)
     user_manager = UserManager(db_adapter, app)
 
