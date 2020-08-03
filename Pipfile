@@ -15,6 +15,7 @@ psycopg2 = "*"
 requests = "*"
 flask-user = "*"
 flask-babelex = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.7"
