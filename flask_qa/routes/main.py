@@ -17,8 +17,8 @@ def index():
     return render_template('index.html')
 
 
-@login_required
 @main.route("/about/")
+@login_required
 def about():
     return render_template("about.html", params=params)
 
