@@ -2,10 +2,11 @@ from flask import Flask
 
 from .commands import create_tables
 from .extensions import db
-from .extensions2 import user_manager
 from .models import Projects, UserDb, PostDb, User
 from .routes.auth import auth
 from .routes.main import main
+
+from flask_user import UserManager
 
 
 def create_app(config_file='settings.py'):
@@ -15,7 +16,7 @@ def create_app(config_file='settings.py'):
 
     db.init_app(app)
 
-    user_manager.init_app(app)
+    user_manager = UserManager(app, db, User)
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
