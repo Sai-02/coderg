@@ -34,41 +34,43 @@ def contact():
 
 
 @main.route("/dashboard/", methods=['GET', 'POST'])
+@login_required
 def dashboard():
     # admin already logged in
-    if 'user' in session and (session['user'] == params["admin"]["user1"] or session['user'] == params["admin"]["user2"]):
+    # if 'user' in session and (session['user'] == params["admin"]["user1"] or session['user'] == params["admin"]["user2"]):
+    if 'admin' in current_user.roles:
         posts = PostDb.query.all()
         return render_template('dashboard.html', params=params, posts=posts)
 
     # user already logged in
-    if 'user' in session:
+    else:
         posts = PostDb.query.filter_by(username=session['user'])
         return render_template('dashboard.html', params=params, posts=posts)
 
     # logging in
-    if request.method == 'POST':
-        username = request.form.get('uname').lower()
-        password = request.form.get('pass')
-        password = sha256(password.encode('utf-8')).hexdigest()
-        # admin
-        if (username == params["admin"]["user1"] and password == params["admin"]["password1"]) or username == params["admin"]["user2"] and password == params["admin"]["password2"]:
-            # Log in & Redirect to admin panel
-            session['user'] = username
-            posts = PostDb.query.all()
-            return render_template('dashboard.html', params=params, posts=posts)
-
-        # user
-        user = UserDb.query.filter_by(username=username).first()
-        if user:
-            if password == user.password:
-                session['user'] = username
-                posts = PostDb.query.filter_by(username=username)
-                return render_template('dashboard.html', params=params, posts=posts)
-            else:
-                flash("Wrong password", "danger")
-
-        else:
-            flash(username + " does not have account", "danger")
+    # if request.method == 'POST':
+    #     username = request.form.get('uname').lower()
+    #     password = request.form.get('pass')
+    #     password = sha256(password.encode('utf-8')).hexdigest()
+    #     # admin
+    #     if (username == params["admin"]["user1"] and password == params["admin"]["password1"]) or username == params["admin"]["user2"] and password == params["admin"]["password2"]:
+    #         # Log in & Redirect to admin panel
+    #         session['user'] = username
+    #         posts = PostDb.query.all()
+    #         return render_template('dashboard.html', params=params, posts=posts)
+    #
+    #     # user
+    #     user = UserDb.query.filter_by(username=username).first()
+    #     if user:
+    #         if password == user.password:
+    #             session['user'] = username
+    #             posts = PostDb.query.filter_by(username=username)
+    #             return render_template('dashboard.html', params=params, posts=posts)
+    #         else:
+    #             flash("Wrong password", "danger")
+    #
+    #     else:
+    #         flash(username + " does not have account", "danger")
 
     return render_template('lisu.html', params=params)
 
