@@ -1,4 +1,4 @@
-from flask_user import UserMixin
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 
 from .extensions import db
@@ -22,9 +22,6 @@ class User(db.Model, UserMixin):
 
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
 
-    # Define the relationship to Role via UserRoles
-    roles = db.relationship('Role', secondary='user_roles')
-
     @property
     def fullname(self):
         return self.first_name + self.last_name
@@ -45,21 +42,6 @@ class User(db.Model, UserMixin):
     @password.setter
     def password(self, unhashed_password):
         self._hashed_password = generate_password_hash(unhashed_password)
-
-
-# Define the Role data-model
-class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-
-
-# Define the UserRoles association table
-class UserRoles(db.Model):
-    __tablename__ = 'user_roles'
-    id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
 
 
 # class UserDb(db.Model):

@@ -1,13 +1,10 @@
 from flask import Flask
 
 from .commands import create_tables
-from .extensions import db
+from .extensions import db, login_manager
 from .models import User, Projects, PostDb
 from .routes.auth import auth
 from .routes.main import main
-
-from flask_user import UserManager
-from flask_babelex import Babel
 
 
 def create_app(config_file='settings.py'):
@@ -16,11 +13,9 @@ def create_app(config_file='settings.py'):
     app.config.from_pyfile(config_file)
 
     db.init_app(app)
+    login_manager.init_app(app)
 
-    user_manager = UserManager(app, db, User)
-
-    # Initialize Flask-BabelEx
-    babel = Babel(app)
+    # login_manager.login_view = 'auth.login'
 
     app.register_blueprint(main)
     app.register_blueprint(auth)

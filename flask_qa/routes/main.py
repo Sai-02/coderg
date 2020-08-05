@@ -7,7 +7,7 @@ from config.config import params
 from hashlib import sha256
 from datetime import datetime
 import math
-from flask_user import login_required
+from flask_login import login_required
 
 main = Blueprint('main', __name__)
 

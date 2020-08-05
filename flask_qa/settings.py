@@ -3,11 +3,3 @@ import os
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-# settings for flask_user
-CSRF_ENABLED = True
-USER_ENABLE_EMAIL = False
-USER_ENABLE_USERNAME = True
-
-USER_APP_NAME = 'Aqdas'
-USER_REQUIRE_RETYPE_PASSWORD = False
