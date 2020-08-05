@@ -2,11 +2,12 @@ from flask import Flask
 
 from .commands import create_tables
 from .extensions import db
-from .models import Projects, UserDb, PostDb, User
+from .models import Projects, PostDb, User
 from .routes.auth import auth
 from .routes.main import main
 
 from flask_user import UserManager
+from flask_babelex import Babel
 
 
 def create_app(config_file='settings.py'):
@@ -17,6 +18,9 @@ def create_app(config_file='settings.py'):
     db.init_app(app)
 
     user_manager = UserManager(app, db, User)
+
+    # Initialize Flask-BabelEx
+    babel = Babel(app)
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
