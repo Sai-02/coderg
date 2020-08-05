@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255, collation='NOCASE'), nullable=False, unique=True)
     email_confirmed_at = db.Column(db.DateTime())
     username = db.Column(db.String(50), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False, server_default='')
+    _hashed_password = db.Column(db.String(255), nullable=False, server_default='')
 
     # User information
     first_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
@@ -40,11 +40,11 @@ class User(db.Model, UserMixin):
 
     @property
     def password(self):
-        return self.hashed_password
+        return self._hashed_password
 
     @password.setter
     def password(self, unhashed_password):
-        self.hashed_password = generate_password_hash(unhashed_password)
+        self._hashed_password = generate_password_hash(unhashed_password)
 
 
 # Define the Role data-model
