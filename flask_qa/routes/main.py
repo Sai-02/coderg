@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, flash
 
-from flask_qa.models import Projects, UserDb, PostDb
+from flask_qa.models import User, Projects, PostDb
 from flask_qa.extensions import db
 
 from config.config import params

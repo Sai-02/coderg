@@ -65,7 +65,7 @@ def signup():
                 # TO DO flash in html and dashboard change checking
                 flash("Sign up completed", "success")
                 # signing in
-                login_user(username)
+                login_user(user)
                 # session['user'] = username
                 return redirect("/dashboard")
             else:
